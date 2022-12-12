@@ -1,4 +1,5 @@
-﻿using EFCoreTutorial.Data.Models;
+﻿using EFCoreTutorial.Common;
+using EFCoreTutorial.Data.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace EFCoreTutorial.Data.Context;
@@ -13,11 +14,16 @@ public class ApplicationDbContext : DbContext
 
     }
 
+    public DbSet<Course> Courses { get; set; }
+    public DbSet<Teacher> Teachers { get; set; }
+    public DbSet<Student> Students { get; set; }
+    public DbSet<StudentAddress> StudentAddresses { get; set; }
+
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         if (!optionsBuilder.IsConfigured)
         {
-            optionsBuilder.UseSqlServer("Data Source=DESKTOP-9L477L0;TrustServerCertificate=True;Initial Catalog=efcore;User ID=caglark;Password=caglar39");
+            optionsBuilder.UseSqlServer(StringConstant.DbConnectionString);
         }
 
         //base.OnConfiguring(optionsBuilder);
