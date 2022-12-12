@@ -20,7 +20,21 @@ namespace EFCoreTutorial.WebApi.Controllers
         [HttpGet]
         public async Task<IActionResult> Get()
         {
+            string filter = "";
+
             var students = await applicationDbContext.Students.ToListAsync();
+
+            var queryableStudent = applicationDbContext.Students.AsQueryable();
+
+            if (!String.IsNullOrEmpty(filter))
+                queryableStudent = queryableStudent.Where(i => i.FirstName == filter);
+
+            if (!String.IsNullOrEmpty(filter))
+                queryableStudent = queryableStudent.Where(i => i.LastName == filter);
+            
+            // Dynamic filter
+
+
 
             return Ok(students);
         }
